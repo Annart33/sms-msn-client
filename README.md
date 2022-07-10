@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# SMS Messenger
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+With the SMS Messenger app you will be able to send an SMS to the specified number and watch your messaging history.
+The client side was written using the react framework and the server side with c# and .net 6.
 
-## Available Scripts
+## Database
+For the database i used Amazon Web Services RDS to get a free and easy to use cloud db.
 
-In the project directory, you can run:
 
-### `npm start`
+## Strcuture of client
+The client basically contains 2 main components- message history and new message components. 
+When creating a new message, an api request will be sent to twilio using the smsSender service, and a post message with it's details will be sent to our server.
+By clicking history, the app sends a get request to the server to get all the previously sent messages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Strcuture of server
+### Migrations -
+As the server goes up, all the migration files will be called and will run in the db, creating all the specified tables, etc.
+### Controllers -
+You will find a controllers directory which contains the api requests that come from the client to save new messages in the db and get all existing messages in order to view your messaging history.
+### Services -
+The services are called by the controllers and will be the "logical" part of the request processing, before talking to the db.
+### Stores -
+The stores are called by the services and they talk directly with the db, using the class DbConnectionHolder which is responsible for connecting to the db using the provided connection string (which you can find in appsettings.json).
+### DTO -
+The DTOs contain the objects such as Message and MessageRequest.
+### Mappers -
+The Message mapper maps the message request into the message object in order to save it that way in the db. 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# How to run the app
+### Server side
+To set up the server side please run in your console (in the API project), the following command: \
+dotnet build && dotnet run --urls=http://localhost:7272
+### Client side
+To set up the client side please run in your console (in my-app project), the following command: \
+npm i && npm start
+# sms-msn
+# sms-msn-client
